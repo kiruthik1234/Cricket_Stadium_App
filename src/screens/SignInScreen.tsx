@@ -17,6 +17,50 @@ type Props = {
   defaultCountry?: string;
 };
 
+// Pure React Native Minimalist Vector Icons (No Emoji)
+function PhoneIcon({color = '#64748B'}: {color?: string}) {
+  return (
+    <View style={[iconStyles.phoneFrame, {borderColor: color}]}>
+      <View style={[iconStyles.phoneSpeaker, {backgroundColor: color}]} />
+      <View style={[iconStyles.phoneHomeBtn, {backgroundColor: color}]} />
+    </View>
+  );
+}
+
+function LockIcon({color = '#64748B'}: {color?: string}) {
+  return (
+    <View style={iconStyles.lockContainer}>
+      <View style={[iconStyles.lockShackle, {borderColor: color}]} />
+      <View style={[iconStyles.lockBody, {backgroundColor: color}]} />
+    </View>
+  );
+}
+
+function EyeIcon({visible, color = '#64748B'}: {visible: boolean; color?: string}) {
+  return (
+    <View style={iconStyles.eyeContainer}>
+      <View style={[iconStyles.eyeOval, {borderColor: color}]}>
+        <View style={[iconStyles.eyePupil, {backgroundColor: color}]} />
+      </View>
+      {!visible && <View style={[iconStyles.eyeSlash, {backgroundColor: color}]} />}
+    </View>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <View style={iconStyles.checkMark} />
+  );
+}
+
+function AlertIcon({color = '#991B1B'}: {color?: string}) {
+  return (
+    <View style={[iconStyles.alertBadge, {backgroundColor: color}]}>
+      <Text style={iconStyles.alertText}>!</Text>
+    </View>
+  );
+}
+
 export default function SignInScreen({onSignIn, onGoToSignUp, defaultCountry = 'India'}: Props) {
   const [phoneOrEmail, setPhoneOrEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +73,7 @@ export default function SignInScreen({onSignIn, onGoToSignUp, defaultCountry = '
     setError(null);
     setSuccessMessage(null);
     if (!phoneOrEmail.trim() || !password) {
-      setError('Please enter your phone number or password.');
+      setError('Please enter your phone number and password.');
       return;
     }
     if (password.length < 6) {
@@ -78,14 +122,14 @@ export default function SignInScreen({onSignIn, onGoToSignUp, defaultCountry = '
           {/* ERROR / SUCCESS NOTIFICATIONS */}
           {error ? (
             <View style={styles.errorBox}>
-              <Text style={styles.errorIcon}>⚠️</Text>
+              <AlertIcon color="#991B1B" />
               <Text style={styles.errorText}>{error}</Text>
             </View>
           ) : null}
 
           {successMessage ? (
             <View style={styles.successBox}>
-              <Text style={styles.successIcon}>✅</Text>
+              <AlertIcon color="#166534" />
               <Text style={styles.successText}>{successMessage}</Text>
             </View>
           ) : null}
@@ -94,7 +138,9 @@ export default function SignInScreen({onSignIn, onGoToSignUp, defaultCountry = '
           {/* Phone Number Input */}
           <View style={styles.inputFieldContainer}>
             <View style={styles.inputWrapper}>
-              <Text style={styles.leftInputIcon}>📱</Text>
+              <View style={styles.iconBox}>
+                <PhoneIcon color="#64748B" />
+              </View>
               <TextInput
                 style={styles.textInput}
                 placeholder="Phone Number"
@@ -112,7 +158,9 @@ export default function SignInScreen({onSignIn, onGoToSignUp, defaultCountry = '
           {/* Password Input */}
           <View style={styles.inputFieldContainer}>
             <View style={styles.inputWrapper}>
-              <Text style={styles.leftInputIcon}>🔒</Text>
+              <View style={styles.iconBox}>
+                <LockIcon color="#64748B" />
+              </View>
               <TextInput
                 style={[styles.textInput, {paddingRight: 45}]}
                 placeholder="Password"
@@ -126,7 +174,7 @@ export default function SignInScreen({onSignIn, onGoToSignUp, defaultCountry = '
                 onPress={() => setShowPassword(!showPassword)}
                 activeOpacity={0.6}
               >
-                <Text style={styles.eyeToggleIcon}>{showPassword ? '🙈' : '👁️'}</Text>
+                <EyeIcon visible={showPassword} color="#64748B" />
               </TouchableOpacity>
             </View>
           </View>
@@ -139,7 +187,7 @@ export default function SignInScreen({onSignIn, onGoToSignUp, defaultCountry = '
               activeOpacity={0.7}
             >
               <View style={[styles.checkbox, rememberMe && styles.checkboxChecked]}>
-                {rememberMe && <Text style={styles.checkmark}>✓</Text>}
+                {rememberMe && <CheckIcon />}
               </View>
               <Text style={styles.rememberLabel}>Remember me</Text>
             </TouchableOpacity>
@@ -199,6 +247,95 @@ export default function SignInScreen({onSignIn, onGoToSignUp, defaultCountry = '
     </KeyboardAvoidingView>
   );
 }
+
+const iconStyles = StyleSheet.create({
+  phoneFrame: {
+    width: 14,
+    height: 20,
+    borderRadius: 3,
+    borderWidth: 1.8,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 2,
+  },
+  phoneSpeaker: {
+    width: 4,
+    height: 1.5,
+    borderRadius: 1,
+  },
+  phoneHomeBtn: {
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+  },
+  lockContainer: {
+    width: 16,
+    height: 18,
+    alignItems: 'center',
+  },
+  lockShackle: {
+    width: 10,
+    height: 8,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    borderWidth: 1.8,
+    borderBottomWidth: 0,
+  },
+  lockBody: {
+    width: 16,
+    height: 10,
+    borderRadius: 2,
+    marginTop: -1,
+  },
+  eyeContainer: {
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  eyeOval: {
+    width: 18,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 1.8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  eyePupil: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+  },
+  eyeSlash: {
+    position: 'absolute',
+    width: 2,
+    height: 18,
+    borderRadius: 1,
+    transform: [{rotate: '45deg'}],
+  },
+  checkMark: {
+    width: 5,
+    height: 9,
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: '#FFFFFF',
+    transform: [{rotate: '45deg'}],
+    marginTop: -1,
+  },
+  alertBadge: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  alertText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '900',
+  },
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -316,10 +453,6 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 16,
   },
-  errorIcon: {
-    marginRight: 8,
-    fontSize: 14,
-  },
   errorText: {
     color: '#991B1B',
     fontSize: 13,
@@ -335,10 +468,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
     marginBottom: 16,
-  },
-  successIcon: {
-    marginRight: 8,
-    fontSize: 14,
   },
   successText: {
     color: '#166534',
@@ -357,11 +486,13 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: '#E2E8F0',
     borderRadius: 14,
-    paddingHorizontal: 16,
+    paddingHorizontal: 14,
   },
-  leftInputIcon: {
-    fontSize: 16,
-    marginRight: 12,
+  iconBox: {
+    width: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
   },
   textInput: {
     flex: 1,
@@ -387,9 +518,6 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: 'center',
   },
-  eyeToggleIcon: {
-    fontSize: 16,
-  },
   optionsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -414,12 +542,6 @@ const styles = StyleSheet.create({
   },
   checkboxChecked: {
     backgroundColor: '#00875A',
-  },
-  checkmark: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '900',
-    marginTop: -1,
   },
   rememberLabel: {
     fontSize: 13,

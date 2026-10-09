@@ -746,17 +746,18 @@ function AppContent() {
                 <Text style={styles.headerWelcome}>Welcome back, {userEmail?.split('@')[0]}</Text>
               </View>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <TouchableOpacity 
-                  style={[styles.signOutButton, { backgroundColor: 'rgba(255,255,255,0.1)', marginRight: 10, borderColor: 'transparent' }]} 
-                  onPress={() => setScreen('schedule')}
-                >
-                  <Text style={[styles.signOutText, { color: '#FFF' }]}>Schedules 📅</Text>
-                </TouchableOpacity>
+                {/* User Initial Avatar Circle */}
+                <View style={styles.userAvatarCircle}>
+                  <Text style={styles.avatarInitialText}>
+                    {userEmail ? userEmail.charAt(0).toUpperCase() : 'U'}
+                  </Text>
+                </View>
                 <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
                   <Text style={styles.signOutText}>Sign Out</Text>
                 </TouchableOpacity>
               </View>
             </View>
+
 
             {/* Region Filter */}
             <View style={styles.filterSection}>
@@ -851,7 +852,7 @@ function AppContent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#071510',
+    backgroundColor: '#0F172A',
   },
   dashboardContainer: {
     flex: 1,
@@ -877,15 +878,37 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.6)',
     marginTop: 2,
   },
+  userAvatarCircle: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: '#00875A',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+    borderWidth: 2,
+    borderColor: '#059669',
+    shadowColor: '#00875A',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  avatarInitialText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '800',
+  },
   signOutButton: {
     paddingVertical: 6,
     paddingHorizontal: 12,
-    borderRadius: 6,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E53935',
+    borderColor: '#EF4444',
+    backgroundColor: 'rgba(239, 68, 68, 0.1)',
   },
   signOutText: {
-    color: '#E53935',
+    color: '#F87171',
     fontSize: 12,
     fontWeight: '600',
   },
@@ -929,11 +952,11 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   stadiumCard: {
-    backgroundColor: 'rgba(13, 38, 28, 0.7)',
-    borderRadius: 12,
+    backgroundColor: '#1E293B',
+    borderRadius: 14,
     marginBottom: 15,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: '#334155',
     flexDirection: 'row',
     overflow: 'hidden',
     shadowColor: '#000',
@@ -942,6 +965,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 3,
   },
+
   accentBar: {
     width: 6,
   },

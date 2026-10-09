@@ -17,6 +17,68 @@ type Props = {
   defaultCountry?: string;
 };
 
+// Pure React Native Minimalist Vector Icons (No Emoji)
+function UserIcon({color = '#64748B'}: {color?: string}) {
+  return (
+    <View style={iconStyles.userContainer}>
+      <View style={[iconStyles.userHead, {backgroundColor: color}]} />
+      <View style={[iconStyles.userBody, {backgroundColor: color}]} />
+    </View>
+  );
+}
+
+function PhoneIcon({color = '#64748B'}: {color?: string}) {
+  return (
+    <View style={[iconStyles.phoneFrame, {borderColor: color}]}>
+      <View style={[iconStyles.phoneSpeaker, {backgroundColor: color}]} />
+      <View style={[iconStyles.phoneHomeBtn, {backgroundColor: color}]} />
+    </View>
+  );
+}
+
+function EmailIcon({color = '#64748B'}: {color?: string}) {
+  return (
+    <View style={[iconStyles.emailEnvelope, {borderColor: color}]}>
+      <View style={[iconStyles.emailFlapLeft, {borderColor: color}]} />
+      <View style={[iconStyles.emailFlapRight, {borderColor: color}]} />
+    </View>
+  );
+}
+
+function LockIcon({color = '#64748B'}: {color?: string}) {
+  return (
+    <View style={iconStyles.lockContainer}>
+      <View style={[iconStyles.lockShackle, {borderColor: color}]} />
+      <View style={[iconStyles.lockBody, {backgroundColor: color}]} />
+    </View>
+  );
+}
+
+function EyeIcon({visible, color = '#64748B'}: {visible: boolean; color?: string}) {
+  return (
+    <View style={iconStyles.eyeContainer}>
+      <View style={[iconStyles.eyeOval, {borderColor: color}]}>
+        <View style={[iconStyles.eyePupil, {backgroundColor: color}]} />
+      </View>
+      {!visible && <View style={[iconStyles.eyeSlash, {backgroundColor: color}]} />}
+    </View>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <View style={iconStyles.checkMark} />
+  );
+}
+
+function AlertIcon({color = '#991B1B'}: {color?: string}) {
+  return (
+    <View style={[iconStyles.alertBadge, {backgroundColor: color}]}>
+      <Text style={iconStyles.alertText}>!</Text>
+    </View>
+  );
+}
+
 export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = 'India'}: Props) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -92,7 +154,7 @@ export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = '
           {/* ERROR NOTIFICATION */}
           {error ? (
             <View style={styles.errorBox}>
-              <Text style={styles.errorIcon}>⚠️</Text>
+              <AlertIcon color="#991B1B" />
               <Text style={styles.errorText}>{error}</Text>
             </View>
           ) : null}
@@ -101,7 +163,9 @@ export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = '
           {/* Full Name */}
           <View style={styles.inputFieldContainer}>
             <View style={styles.inputWrapper}>
-              <Text style={styles.leftInputIcon}>👤</Text>
+              <View style={styles.iconBox}>
+                <UserIcon color="#64748B" />
+              </View>
               <TextInput
                 style={styles.textInput}
                 placeholder="Full Name"
@@ -115,7 +179,9 @@ export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = '
           {/* Phone Number */}
           <View style={styles.inputFieldContainer}>
             <View style={styles.inputWrapper}>
-              <Text style={styles.leftInputIcon}>📱</Text>
+              <View style={styles.iconBox}>
+                <PhoneIcon color="#64748B" />
+              </View>
               <TextInput
                 style={styles.textInput}
                 placeholder="Phone Number"
@@ -132,7 +198,9 @@ export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = '
           {/* Email Address */}
           <View style={styles.inputFieldContainer}>
             <View style={styles.inputWrapper}>
-              <Text style={styles.leftInputIcon}>✉️</Text>
+              <View style={styles.iconBox}>
+                <EmailIcon color="#64748B" />
+              </View>
               <TextInput
                 style={styles.textInput}
                 placeholder="Email Address"
@@ -148,7 +216,9 @@ export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = '
           {/* Password */}
           <View style={styles.inputFieldContainer}>
             <View style={styles.inputWrapper}>
-              <Text style={styles.leftInputIcon}>🔒</Text>
+              <View style={styles.iconBox}>
+                <LockIcon color="#64748B" />
+              </View>
               <TextInput
                 style={[styles.textInput, {paddingRight: 45}]}
                 placeholder="Password"
@@ -162,7 +232,7 @@ export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = '
                 onPress={() => setShowPassword(!showPassword)}
                 activeOpacity={0.6}
               >
-                <Text style={styles.eyeToggleIcon}>{showPassword ? '🙈' : '👁️'}</Text>
+                <EyeIcon visible={showPassword} color="#64748B" />
               </TouchableOpacity>
             </View>
           </View>
@@ -170,7 +240,9 @@ export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = '
           {/* Confirm Password */}
           <View style={styles.inputFieldContainer}>
             <View style={styles.inputWrapper}>
-              <Text style={styles.leftInputIcon}>🔒</Text>
+              <View style={styles.iconBox}>
+                <LockIcon color="#64748B" />
+              </View>
               <TextInput
                 style={styles.textInput}
                 placeholder="Confirm Password"
@@ -189,7 +261,7 @@ export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = '
             activeOpacity={0.7}
           >
             <View style={[styles.checkbox, agreeTerms && styles.checkboxChecked]}>
-              {agreeTerms && <Text style={styles.checkmark}>✓</Text>}
+              {agreeTerms && <CheckIcon />}
             </View>
             <Text style={styles.termsText}>
               I agree to the <Text style={styles.termsLink}>Terms of Service</Text> &{' '}
@@ -238,6 +310,141 @@ export default function SignUpScreen({onSignUp, onGoToSignIn, defaultCountry = '
     </KeyboardAvoidingView>
   );
 }
+
+const iconStyles = StyleSheet.create({
+  userContainer: {
+    width: 16,
+    height: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  userHead: {
+    width: 7,
+    height: 7,
+    borderRadius: 3.5,
+    marginBottom: 1,
+  },
+  userBody: {
+    width: 14,
+    height: 7,
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6,
+  },
+  phoneFrame: {
+    width: 14,
+    height: 20,
+    borderRadius: 3,
+    borderWidth: 1.8,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 2,
+  },
+  phoneSpeaker: {
+    width: 4,
+    height: 1.5,
+    borderRadius: 1,
+  },
+  phoneHomeBtn: {
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+  },
+  emailEnvelope: {
+    width: 16,
+    height: 12,
+    borderRadius: 2,
+    borderWidth: 1.8,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  emailFlapLeft: {
+    position: 'absolute',
+    left: -2,
+    top: -2,
+    width: 10,
+    height: 8,
+    borderRightWidth: 1.5,
+    borderBottomWidth: 1.5,
+    transform: [{rotate: '30deg'}],
+  },
+  emailFlapRight: {
+    position: 'absolute',
+    right: -2,
+    top: -2,
+    width: 10,
+    height: 8,
+    borderLeftWidth: 1.5,
+    borderBottomWidth: 1.5,
+    transform: [{rotate: '-30deg'}],
+  },
+  lockContainer: {
+    width: 16,
+    height: 18,
+    alignItems: 'center',
+  },
+  lockShackle: {
+    width: 10,
+    height: 8,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    borderWidth: 1.8,
+    borderBottomWidth: 0,
+  },
+  lockBody: {
+    width: 16,
+    height: 10,
+    borderRadius: 2,
+    marginTop: -1,
+  },
+  eyeContainer: {
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  eyeOval: {
+    width: 18,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 1.8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  eyePupil: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+  },
+  eyeSlash: {
+    position: 'absolute',
+    width: 2,
+    height: 18,
+    borderRadius: 1,
+    transform: [{rotate: '45deg'}],
+  },
+  checkMark: {
+    width: 5,
+    height: 9,
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: '#FFFFFF',
+    transform: [{rotate: '45deg'}],
+    marginTop: -1,
+  },
+  alertBadge: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  alertText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '900',
+  },
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -355,10 +562,6 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 16,
   },
-  errorIcon: {
-    marginRight: 8,
-    fontSize: 14,
-  },
   errorText: {
     color: '#991B1B',
     fontSize: 13,
@@ -376,11 +579,13 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: '#E2E8F0',
     borderRadius: 14,
-    paddingHorizontal: 16,
+    paddingHorizontal: 14,
   },
-  leftInputIcon: {
-    fontSize: 16,
-    marginRight: 12,
+  iconBox: {
+    width: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
   },
   textInput: {
     flex: 1,
@@ -406,9 +611,6 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: 'center',
   },
-  eyeToggleIcon: {
-    fontSize: 16,
-  },
   termsRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -428,12 +630,6 @@ const styles = StyleSheet.create({
   },
   checkboxChecked: {
     backgroundColor: '#00875A',
-  },
-  checkmark: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '900',
-    marginTop: -1,
   },
   termsText: {
     fontSize: 12,
