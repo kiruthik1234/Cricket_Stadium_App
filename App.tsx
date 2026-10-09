@@ -781,13 +781,13 @@ function AppContent() {
                       style={[
                         styles.filterTab,
                         isSelected && {
-                          borderColor: countryThemes[country]?.accent || '#FFF',
-                          backgroundColor: 'rgba(255,255,255,0.06)',
+                          borderColor: '#00875A',
+                          backgroundColor: '#00875A',
                         },
                       ]}
                       onPress={() => setDashboardCountry(country)}
                     >
-                      <Text style={[styles.filterTabText, isSelected && {color: '#FFF', fontWeight: 'bold'}]}>
+                      <Text style={[styles.filterTabText, isSelected && {color: '#FFFFFF', fontWeight: 'bold'}]}>
                         {flagMap[country] || '🏏'} {shortMap[country] || country}
                       </Text>
                     </TouchableOpacity>
@@ -810,7 +810,7 @@ function AppContent() {
                   <View style={styles.stadiumDetails}>
                     <View style={styles.stadiumMainInfo}>
                       {stadium.logo && (
-                        <Image source={stadium.logo} style={{ width: 44, height: 44, marginRight: 12, borderRadius: 22, backgroundColor: 'rgba(255,255,255,0.1)' }} resizeMode="contain" />
+                        <Image source={stadium.logo} style={{ width: 44, height: 44, marginRight: 12, borderRadius: 22, backgroundColor: '#F1F5F9' }} resizeMode="contain" />
                       )}
                       <View style={{flex: 1}}>
                         <Text style={styles.stadiumName}>{stadium.name}</Text>
@@ -832,10 +832,10 @@ function AppContent() {
                     <View style={styles.footerRow}>
                       <Text style={styles.ratingText}>{stadium.rating}</Text>
                       <TouchableOpacity
-                        style={[styles.bookButton, {backgroundColor: theme.accent}]}
+                        style={styles.bookButton}
                         onPress={() => setBookingStadium(stadium)}
                       >
-                        <Text style={[styles.bookButtonText, theme.textColor ? {color: theme.textColor} : {}]}>Book Slot</Text>
+                        <Text style={styles.bookButtonText}>Book Slot</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -852,10 +852,11 @@ function AppContent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F172A',
+    backgroundColor: '#FFFFFF',
   },
   dashboardContainer: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 20,
     paddingTop: 15,
   },
@@ -865,23 +866,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 24,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.08)',
+    borderBottomColor: '#E2E8F0',
     paddingBottom: 15,
   },
   headerTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#FFF',
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#0F172A',
+    letterSpacing: -0.5,
   },
   headerWelcome: {
     fontSize: 13,
-    color: 'rgba(255, 255, 255, 0.6)',
+    color: '#64748B',
     marginTop: 2,
+    fontWeight: '500',
   },
   userAvatarCircle: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: '#00875A',
     justifyContent: 'center',
     alignItems: 'center',
@@ -890,7 +893,7 @@ const styles = StyleSheet.create({
     borderColor: '#059669',
     shadowColor: '#00875A',
     shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 3,
   },
@@ -900,27 +903,27 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   signOutButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#EF4444',
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    paddingVertical: 7,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#FCA5A5',
+    backgroundColor: '#FEF2F2',
   },
   signOutText: {
-    color: '#F87171',
+    color: '#991B1B',
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   filterSection: {
     marginBottom: 20,
   },
   filterSectionTitle: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: 'rgba(255, 255, 255, 0.4)',
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#94A3B8',
     textTransform: 'uppercase',
-    letterSpacing: 1,
+    letterSpacing: 1.2,
     marginBottom: 10,
   },
   filterTabsScroll: {
@@ -931,41 +934,40 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     paddingVertical: 8,
     paddingHorizontal: 14,
-    borderRadius: 6,
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    backgroundColor: 'rgba(255, 255, 255, 0.02)',
+    borderColor: '#E2E8F0',
+    backgroundColor: '#F8FAFC',
     alignItems: 'center',
   },
   filterTabText: {
-    color: 'rgba(255, 255, 255, 0.6)',
+    color: '#475569',
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: '600',
   },
   listContent: {
-    paddingBottom: 20,
+    paddingBottom: 30,
   },
   sectionSubtitle: {
-    fontSize: 14,
-    color: 'rgba(255, 255, 255, 0.8)',
-    fontWeight: '600',
-    marginBottom: 14,
+    fontSize: 15,
+    color: '#0F172A',
+    fontWeight: '700',
+    marginBottom: 16,
   },
   stadiumCard: {
-    backgroundColor: '#1E293B',
-    borderRadius: 14,
-    marginBottom: 15,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 18,
+    marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#E2E8F0',
     flexDirection: 'row',
     overflow: 'hidden',
-    shadowColor: '#000',
+    shadowColor: '#0F172A',
     shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 3,
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 2,
   },
-
   accentBar: {
     width: 6,
   },
@@ -976,64 +978,76 @@ const styles = StyleSheet.create({
   stadiumMainInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   stadiumName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FFF',
+    fontSize: 17,
+    fontWeight: '800',
+    color: '#0F172A',
     lineHeight: 22,
   },
   stadiumCity: {
     fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.5)',
+    color: '#64748B',
     marginTop: 2,
+    fontWeight: '500',
   },
   statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-    borderRadius: 6,
-    padding: 8,
-    marginBottom: 12,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: '#F1F5F9',
   },
   statBox: {
     flex: 1,
   },
   statLabel: {
     fontSize: 10,
-    color: 'rgba(255, 255, 255, 0.4)',
+    color: '#94A3B8',
     textTransform: 'uppercase',
+    fontWeight: '700',
+    letterSpacing: 0.5,
   },
   statVal: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#ECEFF1',
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#0F172A',
     marginTop: 2,
   },
   footerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 4,
+    marginTop: 2,
   },
   ratingText: {
-    fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.7)',
-    fontWeight: '500',
+    fontSize: 13,
+    color: '#475569',
+    fontWeight: '600',
   },
   bookButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 6,
+    paddingVertical: 9,
+    paddingHorizontal: 18,
+    borderRadius: 10,
+    backgroundColor: '#00875A',
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#00875A',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2,
   },
   bookButtonText: {
-    color: '#071510',
+    color: '#FFFFFF',
     fontSize: 13,
-    fontWeight: 'bold',
+    fontWeight: '800',
   },
 });
 
 export default App;
+
