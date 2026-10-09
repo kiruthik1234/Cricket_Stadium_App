@@ -21,8 +21,9 @@ import SignInScreen from './src/screens/SignInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import SeatSelectionScreen from './src/screens/SeatSelectionScreen';
 import ScheduleScreen from './src/screens/ScheduleScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
-type Screen = 'signin' | 'signup' | 'home' | 'schedule';
+type Screen = 'signin' | 'signup' | 'home' | 'schedule' | 'profile';
 
 type StandInfo = {
   name: string;
@@ -657,12 +658,15 @@ function AppContent() {
   const safeAreaInsets = useSafeAreaInsets();
   const [screen, setScreen] = useState<Screen>('signin');
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string>('User');
+  const [userPhone, setUserPhone] = useState<string>('');
   const [selectedCountry, setSelectedCountry] = useState<string>('India');
   const [dashboardCountry, setDashboardCountry] = useState<string>('India');
   const [bookingStadium, setBookingStadium] = useState<Stadium | null>(null);
 
   function handleSignIn(email: string, country: string) {
     setUserEmail(email);
+    setUserName('User');
     setSelectedCountry(country);
     setDashboardCountry(country);
     setScreen('home');
@@ -670,6 +674,7 @@ function AppContent() {
 
   function handleSignUp(email: string, country: string) {
     setUserEmail(email);
+    setUserName('User');
     setSelectedCountry(country);
     setDashboardCountry(country);
     setScreen('home');
@@ -677,6 +682,8 @@ function AppContent() {
 
   function handleSignOut() {
     setUserEmail(null);
+    setUserName('User');
+    setUserPhone('');
     setBookingStadium(null);
     setScreen('signin');
   }
@@ -730,6 +737,19 @@ function AppContent() {
           onBack={() => setScreen('home')}
         />
       )}
+      {screen === 'profile' && (
+        <ProfileScreen
+          userName={userName}
+          userEmail={userEmail || 'user@example.com'}
+          userPhone={userPhone}
+          onUpdateProfile={(newName, newPhone) => {
+            setUserName(newName);
+            setUserPhone(newPhone);
+          }}
+          onSignOut={handleSignOut}
+          onBack={() => setScreen('home')}
+        />
+      )}
       {screen === 'home' && (
         bookingStadium ? (
           <SeatSelectionScreen
@@ -742,21 +762,23 @@ function AppContent() {
             {/* Header */}
             <View style={styles.header}>
               <View>
-                <Text style={styles.headerTitle}>Stadium Dashboard</Text>
-                <Text style={styles.headerWelcome}>Welcome back, {userEmail?.split('@')[0]}</Text>
+                <Text style={styles.headerTitle}>Dashboard</Text>
+                <Text style={styles.headerWelcome}>Welcome back, {userName}</Text>
               </View>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                {/* User Initial Avatar Circle */}
-                <View style={styles.userAvatarCircle}>
+                {/* User Initial Avatar Circle -> Opens Profile */}
+                <TouchableOpacity
+                  style={styles.userAvatarCircle}
+                  onPress={() => setScreen('profile')}
+                  activeOpacity={0.8}
+                >
                   <Text style={styles.avatarInitialText}>
-                    {userEmail ? userEmail.charAt(0).toUpperCase() : 'U'}
+                    {(userName || 'User').charAt(0).toUpperCase()}
                   </Text>
-                </View>
-                <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-                  <Text style={styles.signOutText}>Sign Out</Text>
                 </TouchableOpacity>
               </View>
             </View>
+
 
 
             {/* Region Filter */}
